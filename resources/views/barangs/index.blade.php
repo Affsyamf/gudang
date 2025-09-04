@@ -48,7 +48,7 @@
                                     </td>
                                     <td class="py-3 px-6 text-center">
                                         <div class="flex item-center justify-center space-x-2">
-                                            <a href="#" class="bg-yellow-500 text-white py-1 px-3 rounded-full text-xs hover:bg-yellow-600 transition-all duration-200">Edit</a>
+                                            <a href="{{ route('barangs.edit', $barang->id) }}" class="bg-yellow-500 text-white py-1 px-3 rounded-full text-xs hover:bg-yellow-600 transition-all duration-200">Edit</a>
                                             <a href="#" class="bg-red-500 text-white py-1 px-3 rounded-full text-xs hover:bg-red-600 transition-all duration-200">Hapus</a>
                                         </div>
                                     </td>

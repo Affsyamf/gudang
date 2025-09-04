@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 
 class BarangController extends Controller
@@ -59,7 +60,7 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        //
+        return view('barangs.edit', compact('barang'));
     }
 
     /**
@@ -67,7 +68,20 @@ class BarangController extends Controller
      */
     public function update(Request $request, Barang $barang)
     {
-        //
+        $validatedData = $request->validate([
+            // Pastikan kode barang unik, kecuali untuk dirinya sendiri
+            'kode_barang' => ['required', 'max:255', Rule::unique('barangs')->ignore($barang->id)],
+            'nama_barang' => 'required|max:255',
+            'satuan' => 'required|max:50',
+            'deskripsi' => 'nullable|string',
+        ]);
+        
+        // Update data di database
+        $barang->update($validatedData);
+
+        // Redirect kembali ke halaman utama dengan pesan sukses
+        return redirect()->route('barangs.index')
+                         ->with('success', 'Data barang berhasil diupdate!');
     }
 
     /**
