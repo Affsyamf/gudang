@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Gudang App') }}</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    {{-- Tailwind CSS via CDN --}}
+    
+    {{-- Kembali menggunakan Tailwind CSS v4 --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    {{-- SANGAT PENTING: Script untuk mencegah FOUC (Flash of unstyled content) --}}
+    
+    {{-- PERBAIKAN: Konfigurasi Tailwind untuk mem-force dark mode via class --}}
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
+
+    
+
+    {{-- PENTING: Script untuk inisialisasi tema di awal (sudah benar) --}}
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -25,10 +35,9 @@
 
 </head>
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-slate-900">
+    <div class="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
         @include('layouts.navigation')
 
-        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>
