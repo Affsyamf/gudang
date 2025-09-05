@@ -14,7 +14,7 @@ class BarangController extends Controller
      */
     public function index()
     {
-       $barangs = Barang::all();
+       $barangs = Barang::latest()->get();
        return view('barangs.index', ['barangs' => $barangs]);
     }
 
@@ -32,7 +32,7 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         // Validasi input
-        $request->validate([
+         $validatedData = $request->validate([
             'kode_barang' => 'required|unique:barangs|max:255',
             'nama_barang' => 'required|max:255',
             'satuan' => 'required|max:50',
@@ -40,7 +40,7 @@ class BarangController extends Controller
         ]);
 
         // Simpan data ke database
-        Barang::create($request->all());
+        Barang::create($validatedData);
 
         // Redirect kembali ke halaman utama dengan pesan sukses
         return redirect()->route('barangs.index')
@@ -89,6 +89,11 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+         // Hapus data barang dari database
+        $barang->delete();
+
+        // Redirect kembali ke halaman utama dengan pesan sukses
+        return redirect()->route('barangs.index')
+                         ->with('success', 'Data barang berhasil dihapus!');
     }
 }
