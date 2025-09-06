@@ -14,7 +14,7 @@
     {{-- Kembali menggunakan Tailwind CSS v4 --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    
+
     {{-- PERBAIKAN: Konfigurasi Tailwind untuk mem-force dark mode via class --}}
     <script>
       tailwind.config = {
@@ -42,6 +42,8 @@
             {{ $slot }}
         </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </body>
 </html>
 

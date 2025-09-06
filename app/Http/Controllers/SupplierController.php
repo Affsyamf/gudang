@@ -32,7 +32,7 @@ class SupplierController extends Controller
         $request->validate([
             'nama_supplier' => 'required| string| max:255',
             'alamat' => 'required|string',
-            'telepon' => 'required|string|max:20',
+            'kontak' => 'required|string|max:20',
             'email' => 'required|email|unique:suppliers,email',
         ]);
 
@@ -65,7 +65,7 @@ class SupplierController extends Controller
          $request->validate([
             'nama_supplier' => 'required|string|max:255',
             'alamat' => 'required|string',
-            'telepon' => 'required|string|max:20',
+            'kontak' => 'required|string|max:20',
             // Pastikan email unik, kecuali untuk data supplier ini sendiri
             'email' => 'required|email|unique:suppliers,email,' . $supplier->id, 
         ]);
