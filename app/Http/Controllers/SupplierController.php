@@ -12,7 +12,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        $suppliers = Supplier::latest()->paginate(10); 
+        return view('suppliers.index', compact('suppliers'));
     }
 
     /**
@@ -20,7 +21,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return view('suppliers.create');
     }
 
     /**
@@ -28,7 +29,16 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_supplier' => 'required| string| max:255',
+            'alamat' => 'required|string',
+            'telepon' => 'required|string|max:20',
+            'email' => 'required|email|unique:suppliers,email',
+        ]);
+
+        supplier::create($request->all());
+        return redirect()->route('suppliers.index')
+                         ->with('success', 'Supplier created successfully.');
     }
 
     /**
@@ -36,7 +46,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return view('suppliers.show', compact('supplier'));
     }
 
     /**
@@ -44,7 +54,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return view('suppliers.edit', compact('supplier'));
     }
 
     /**
@@ -52,7 +62,18 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+         $request->validate([
+            'nama_supplier' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'telepon' => 'required|string|max:20',
+            // Pastikan email unik, kecuali untuk data supplier ini sendiri
+            'email' => 'required|email|unique:suppliers,email,' . $supplier->id, 
+        ]);
+
+        $supplier->update($request->all());
+
+        return redirect()->route('suppliers.index')
+                         ->with('success', 'Data supplier berhasil diperbarui.');
     }
 
     /**
@@ -60,6 +81,9 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+         $supplier->delete();
+
+        return redirect()->route('suppliers.index')
+                         ->with('success', 'Supplier berhasil dihapus.');
     }
 }
