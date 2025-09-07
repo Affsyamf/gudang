@@ -14,4 +14,25 @@ class Barang extends Model
         'deskripsi',
         'satuan',
     ];
+
+    /**
+     * Mendefinisikan relasi ke model Transaksi.
+     * Sebuah barang bisa memiliki banyak transaksi.
+     */
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
+
+    /**
+     * Accessor untuk menghitung stok tersedia secara dinamis.
+     * Ini akan bisa diakses seperti kolom biasa: $barang->stok_tersedia
+     */
+    public function getStokTersediaAttribute(): int
+    {
+        $totalMasuk = $this->transaksis()->where('jenis', 'masuk')->sum('jumlah');
+        $totalKeluar = $this->transaksis()->where('jenis', 'keluar')->sum('jumlah');
+
+        return $totalMasuk - $totalKeluar;
+    }
 }

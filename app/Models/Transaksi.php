@@ -14,7 +14,17 @@ class Transaksi extends Model
         'barang_id',
         'supplier_id',
         'jumlah',
-        'tanggal',
-        'jenis_transaksi', // misalnya: 'masuk' atau 'keluar'
+        'tanggal_transaksi',
+        'jenis', // misalnya: 'masuk' atau 'keluar'
     ];
+
+     public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
+
+     public function supplier()
+    {
+        return $this->belongsTo(Supplier::class);
+    }
 }
