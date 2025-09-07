@@ -35,7 +35,7 @@ class BarangController extends Controller
          $validatedData = $request->validate([
             'kode_barang' => 'required|unique:barangs|max:255',
             'nama_barang' => 'required|max:255',
-            'satuan' => 'required|max:50',
+            'satuan' => 'required|string|alpha|max:50',
             'deskripsi' => 'nullable|string',
         ]);
 
@@ -72,7 +72,7 @@ class BarangController extends Controller
             // Pastikan kode barang unik, kecuali untuk dirinya sendiri
             'kode_barang' => ['required', 'max:255', Rule::unique('barangs')->ignore($barang->id)],
             'nama_barang' => 'required|max:255',
-            'satuan' => 'required|max:50',
+            'satuan' => 'required|string|alpha|max:50',
             'deskripsi' => 'nullable|string',
         ]);
         

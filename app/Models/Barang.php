@@ -28,11 +28,11 @@ class Barang extends Model
      * Accessor untuk menghitung stok tersedia secara dinamis.
      * Ini akan bisa diakses seperti kolom biasa: $barang->stok_tersedia
      */
-    public function getStokTersediaAttribute(): int
+    public function Stok()
     {
-        $totalMasuk = $this->transaksis()->where('jenis', 'masuk')->sum('jumlah');
-        $totalKeluar = $this->transaksis()->where('jenis', 'keluar')->sum('jumlah');
+        $Masuk = $this->transaksis()->where('jenis', 'masuk')->sum('jumlah');
+        $Keluar = $this->transaksis()->where('jenis', 'keluar')->sum('jumlah');
 
-        return $totalMasuk - $totalKeluar;
+        return $Masuk - $Keluar;
     }
 }
