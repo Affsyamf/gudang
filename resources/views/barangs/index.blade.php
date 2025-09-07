@@ -32,20 +32,20 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-slate-800">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kode Barang</th>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nama Barang</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider ">Kode Barang</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Nama Barang</th>
                                     {{-- =================================== --}}
                                     {{-- PERUBAHAN UTAMA DI SINI --}}
                                     {{-- =================================== --}}
-                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Stok Tersedia</th>
-                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Stok Tersedia</th>
+                                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse ($barangs as $barang)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors duration-150">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ $barang->kode_barang }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ $barang->nama_barang }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white text-center">{{ $barang->kode_barang }}</td>
+                                        <td class="px-6 py-4 text-center whitespace-nowrap text-sm text-slate-900 font-bold dark:text-gray-300">{{ $barang->nama_barang }}</td>
                                         {{-- =================================== --}}
                                         {{-- PERUBAHAN UTAMA DI SINI --}}
                                         {{-- =================================== --}}
@@ -89,5 +89,31 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script> 
+        document.querySelectorAll('.delete-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data Barang akan dihapus secara permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+        @endpush
+
 </x-app-layout>
 
