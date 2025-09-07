@@ -41,6 +41,18 @@
                                 <input type="number" name="jumlah" id="jumlah" value="{{ old('jumlah') }}" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-200 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition duration-150" placeholder="Masukkan jumlah barang" required min="1">
                             </div>
 
+                            {{-- Tujuan Keluar --}}
+                            <div>
+                                 <label for="supplier_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tujuan Keluar</label>
+                                 <select name="supplier_id" id="supplier_id" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-200 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition duration-150" required>
+                                    <option value="">-- Pilih Tujuan Yang Tersedia --</option>
+                                   <option value="">Tujuan Lain / Internal</option>
+                                    @foreach($suppliers as $supplier)
+                                         <option value="{{ $supplier->id }}" {{ old('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->nama_supplier }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             {{-- Tanggal Transaksi --}}
                             <div>
                                 <label for="tanggal_transaksi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tanggal Transaksi</label>

@@ -6,6 +6,8 @@ use App\Models\Transaksi;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Supplier;
+use Illuminate\Support\Facades\DB;
+
 
 class TransaksiController extends Controller
 {
@@ -13,6 +15,19 @@ class TransaksiController extends Controller
      * Display a listing of the resource.
      */
 
+     public function index()
+    {
+        // Ambil semua transaksi, urutkan dari yang terbaru
+        // Gunakan eager loading untuk efisiensi query
+        $transaksis = Transaksi::with(['barang', 'supplier'])
+                                ->orderBy('tanggal_transaksi', 'desc')
+                                ->paginate(10); // Tampilkan 15 data per halaman
+
+        return view('transaksis.index', compact('transaksis'));
+    }
+
+
+    // --- FUNGSI UNTUK BARANG MASUK ---
      public function createMasuk()
     {
         $barangs = Barang::orderBy('nama_barang')->get();
@@ -48,11 +63,9 @@ class TransaksiController extends Controller
     public function createKeluar()
     {
         // Kita hanya akan menampilkan barang yang memiliki stok > 0
-        $barangs = Barang::get()->filter(function ($barang) {
-            return $barang->stok_tersedia > 0;
-        });
-
-        return view('transaksis.create_keluar', compact('barangs'));
+        $barangs = Barang::orderBy('nama_barang')->get();
+        $suppliers = Supplier::orderBy('nama_supplier')->get();
+        return view('transaksis.create_keluar', compact('barangs', 'suppliers'));
     }
 
     // Menyimpan data transaksi barang keluar dengan validasi stok. //
@@ -62,6 +75,7 @@ class TransaksiController extends Controller
     {
         $request->validate([
             'barang_id' => 'required|exists:barangs,id',
+            'supplier_id' => 'nullable|exists:suppliers,id',
             'jumlah' => 'required|integer|min:1',
             'tanggal_transaksi' => 'required|date',
         ]);
@@ -75,7 +89,7 @@ class TransaksiController extends Controller
 
         Transaksi::create([
             'barang_id' => $request->barang_id,
-            'supplier_id' => null, // Barang keluar tidak butuh supplier
+            'supplier_id' =>  $request->supplier_id, // Barang keluar tidak butuh supplier
             'jumlah' => $request->jumlah,
             'tanggal_transaksi' => $request->tanggal_transaksi,
             'jenis' => 'keluar',

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('barang_id')->constrained('barangs')->onDelete('cascade');
-            $table->foreignId('supplier_id')->nullable()->constrained('suppliers')->onDelete('set null');
+            $table->foreignId('supplier_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('jumlah');
             $table->enum('jenis', ['masuk', 'keluar']);
-            $table->date('tanggal_transaksi');
+            $table->date('tanggal_transaksi')->useCurrent();
             $table->timestamps();
         });
     }

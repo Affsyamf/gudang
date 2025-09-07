@@ -16,6 +16,9 @@ Route::resource('barangs', BarangController::class);
 Route::resource('suppliers', SupplierController::class);
 
 // Rute KHUSUS untuk Transaksi
+Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
+
 Route::get('/transaksi/masuk/create', [TransaksiController::class, 'createMasuk'])->name('transaksi.createMasuk');
 Route::post('/transaksi/masuk', [TransaksiController::class, 'storeMasuk'])->name('transaksi.storeMasuk');
 
