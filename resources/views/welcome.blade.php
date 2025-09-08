@@ -26,7 +26,7 @@
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap">
                 <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
-                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg h-full">
                         <div class="px-4 py-5 flex-auto">
                             <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h12M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-12a2.25 2.25 0 01-2.25-2.25V3m12.75 0v6.75a2.25 2.25 0 01-2.25 2.25H9.75a2.25 2.25 0 01-2.25-2.25V3" /></svg>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="w-full md:w-4/12 px-4 text-center">
-                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg h-full">
                         <div class="px-4 py-5 flex-auto">
                             <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="pt-6 w-full md:w-4/12 px-4 text-center">
-                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg h-full">
                         <div class="px-4 py-5 flex-auto">
                             <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
@@ -82,7 +82,8 @@
 
             <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @forelse ($barangs as $barang)
-                <div class="group relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                {{-- PERBAIKAN DI BAWAH INI: Menambahkan class 'flex' dan 'flex-col' untuk mengaktifkan flexbox --}}
+                <div class="group relative flex flex-col bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="aspect-w-1 aspect-h-1 w-full bg-gray-100 dark:bg-gray-800">
                         @if($barang->image)
                             <img src="{{ asset('storage/' . $barang->image) }}" alt="[Gambar {{ $barang->nama_barang }}]" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
@@ -92,7 +93,8 @@
                             </div>
                         @endif
                     </div>
-                    <div class="p-4">
+                    {{-- PERBAIKAN DI BAWAH INI: Menambahkan class 'flex-grow' agar bagian teks ini mengisi sisa ruang --}}
+                    <div class="p-4 flex flex-col flex-grow">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                             {{ $barang->nama_barang }}
                         </h3>

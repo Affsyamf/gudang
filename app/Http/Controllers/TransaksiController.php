@@ -21,7 +21,7 @@ class TransaksiController extends Controller
         // Ambil semua transaksi, urutkan dari yang terbaru
         // Gunakan eager loading untuk efisiensi query
         $transaksis = Transaksi::with(['barang', 'supplier'])
-                                ->orderBy('tanggal_transaksi', 'desc')
+                                ->latest()
                                 ->paginate(10); // Tampilkan 15 data per halaman
 
         return view('transaksis.index', compact('transaksis'));
@@ -31,8 +31,8 @@ class TransaksiController extends Controller
     // --- FUNGSI UNTUK BARANG MASUK ---
      public function createMasuk()
     {
-        $barangs = Barang::orderBy('nama_barang')->get();
-        $suppliers = Supplier::orderBy('nama_supplier')->get();
+        $barangs = Barang::all();
+        $suppliers = Supplier::all();
         return view('transaksis.create_masuk', compact('barangs', 'suppliers'));
     }
 
@@ -60,8 +60,11 @@ class TransaksiController extends Controller
     public function createKeluar()
     {
         // Kita hanya akan menampilkan barang yang memiliki stok > 0
-        $barangs = Barang::orderBy('nama_barang')->get();
-        $suppliers = Supplier::orderBy('nama_supplier')->get();
+        // Hanya ambil barang yang stoknya > 0
+        $barangs = Barang::all()->filter(function ($barang) {
+            return $barang->stok() > 0;
+        });
+        $suppliers = Supplier::all();
         return view('transaksis.create_keluar', compact('barangs', 'suppliers'));
     }
 

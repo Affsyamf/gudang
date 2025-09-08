@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,43 +10,44 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
-    {{-- Kembali menggunakan Tailwind CSS v4 --}}
+
+    {{-- Tailwind CSS via CDN --}}
     <script src="https://cdn.tailwindcss.com"></script>
-
-
-    {{-- PERBAIKAN: Konfigurasi Tailwind untuk mem-force dark mode via class --}}
-    <script>
-      tailwind.config = {
-        darkMode: 'class',
-      }
-    </script>
-
     
-
-    {{-- PENTING: Script untuk inisialisasi tema di awal (sudah benar) --}}
+    {{-- Konfigurasi Dark Mode untuk Tailwind v4 --}}
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    
+    {{-- Script inisialisasi tema di awal untuk menghindari kedipan --}}
     <script>
         if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
-            document.documentElement.classList.remove('dark')
+            document.documentElement.classList.remove('dark');
         }
     </script>
+    
+    {{-- Alpine.js untuk interaktivitas (DENGAN DEFER) --}}
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-slate-100 dark:bg-slate-900 transition-colors duration-300">
+<body class="font-sans antialiased bg-slate-100 dark:bg-slate-900 overflow-x-hidden">
+    <div class="min-h-screen">
+        {{-- Memanggil menu navigasi --}}
         @include('layouts.navigation')
 
+        <!-- Page Content -->
         <main>
             {{ $slot }}
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
+    {{-- SweetAlert2 & ApexCharts via CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-     @stack('scripts')
+    @stack('scripts')
 </body>
 </html>
-
