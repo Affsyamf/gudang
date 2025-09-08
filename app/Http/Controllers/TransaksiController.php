@@ -104,5 +104,27 @@ class TransaksiController extends Controller
 
         return redirect()->route('transaksis.index')->with('success', 'Transaksi barang keluar berhasil dicatat.');
     }
+
+    // Menambahkan method cetak
+    public function cetak(Request $request)
+    {
+        // Validasi input tanggal
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $startDate = $validated['start_date'];
+        $endDate = $validated['end_date'];
+
+        // Ambil data transaksi dalam rentang tanggal yang dipilih
+        $transaksis = Transaksi::with(['barang', 'supplier'])
+            ->whereBetween('tanggal_transaksi', [$startDate, $endDate])
+            ->latest('tanggal_transaksi')
+            ->get(); // Gunakan get() karena kita mau semua data dalam rentang itu
+
+        // Kirim data ke view cetak
+        return view('transaksis.cetak', compact('transaksis', 'startDate', 'endDate'));
+    }
 }
 

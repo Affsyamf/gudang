@@ -8,19 +8,30 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\HomeController;
 
 
+// Rute Halaman Utama (Publik)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Grup Rute yang membutuhkan Autentikasi (Dashboard dan lainnya)
+// Untuk saat ini kita belum implementasi login, jadi kita kelompokkan saja
+Route::middleware(['web'])->group(function () {
+    
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::resource('barangs', BarangController::class);
-Route::resource('suppliers', SupplierController::class);
+    // CRUD Barang
+    Route::resource('barangs', BarangController::class);
 
-// Rute KHUSUS untuk Transaksi
-Route::get('/transaksis', [TransaksiController::class, 'index'])->name('transaksis.index');
-// Route::get('/transaksi/{transaksi}', [TransaksiController::class, 'show'])->name('transaksi.show');
+    // CRUD Supplier
+    Route::resource('suppliers', SupplierController::class);
 
-Route::get('/transaksi/masuk/create', [TransaksiController::class, 'createMasuk'])->name('transaksi.createMasuk');
-Route::post('/transaksi/masuk', [TransaksiController::class, 'storeMasuk'])->name('transaksi.storeMasuk');
+    // Transaksi
+    Route::get('/transaksis', [TransaksiController::class, 'index'])->name('transaksis.index');
+    Route::get('/transaksis/masuk', [TransaksiController::class, 'createMasuk'])->name('transaksi.createMasuk');
+    Route::post('/transaksis/masuk', [TransaksiController::class, 'storeMasuk'])->name('transaksi.storeMasuk');
+    Route::get('/transaksis/keluar', [TransaksiController::class, 'createKeluar'])->name('transaksi.createKeluar');
+    Route::post('/transaksis/keluar', [TransaksiController::class, 'storeKeluar'])->name('transaksi.storeKeluar');
 
-Route::get('/transaksi/keluar/create', [TransaksiController::class, 'createKeluar'])->name('transaksi.createKeluar');
-Route::post('/transaksi/keluar', [TransaksiController::class, 'storeKeluar'])->name('transaksi.storeKeluar');
+    // Rute untuk Cetak Laporan Transaksi
+    Route::get('/transaksis/cetak', [TransaksiController::class, 'cetak'])->name('transaksis.cetak');
+
+});
