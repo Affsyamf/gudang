@@ -56,7 +56,7 @@
                             {{-- Tanggal Transaksi --}}
                             <div>
                                 <label for="tanggal_transaksi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tanggal Transaksi</label>
-                                <input type="date" name="tanggal_transaksi" id="tanggal_transaksi" value="{{ old('tanggal_transaksi', date('Y-m-d')) }}" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-200 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition duration-150" required>
+                                <input type="datetime-local" name="tanggal_transaksi" id="tanggal_transaksi" value="{{ old('tanggal_transaksi', now()->format('Y-m-d\TH:i')) }}" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-200 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition duration-150" required>
                             </div>
 
                             {{-- Tombol Aksi --}}
@@ -74,4 +74,26 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        // PERBAIKAN: Script untuk mengatur waktu default ke waktu saat ini
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const hh = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            
+            const localDateTime = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+            
+            const dateInput = document.getElementById('tanggal_transaksi');
+            if (!dateInput.value) {
+                dateInput.value = localDateTime;
+            }
+        });
+    </script>
+    @endpush
 </x-app-layout>

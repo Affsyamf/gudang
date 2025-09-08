@@ -65,7 +65,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    // PERBAIKAN UTAMA: Mengatur zona waktu ke WIB
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -124,3 +125,4 @@ return [
     ],
 
 ];
+

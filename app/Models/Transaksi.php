@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
 class Transaksi extends Model
@@ -18,12 +19,16 @@ class Transaksi extends Model
         'tanggal_transaksi',
     ];
 
-     public function barang()
+    protected $casts = [
+        'tanggal_transaksi' => 'datetime',
+    ];
+
+     public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class);
     }
 
-     public function supplier()
+     public function supplier(): BelongsTo
     {
         return $this->belongsTo(Supplier::class);
     }

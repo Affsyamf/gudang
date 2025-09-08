@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('supplier_id')->nullable()->constrained()->onDelete('set null');
             $table->integer('jumlah');
             $table->enum('jenis', ['masuk', 'keluar']);
-            $table->date('tanggal_transaksi')->useCurrent();
+            $table->timestamp('tanggal_transaksi')->useCurrent();
             $table->timestamps();
         });
     }

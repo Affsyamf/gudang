@@ -32,6 +32,8 @@
                         </a>
                     </div>
 
+                    {{-- seacrh --}}
+
                     <div class="mb-4">
                         <div class="relative">
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
