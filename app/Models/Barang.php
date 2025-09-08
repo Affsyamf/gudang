@@ -13,6 +13,7 @@ class Barang extends Model
         'nama_barang',
         'deskripsi',
         'satuan',
+        'image', // Menyimpan path gambar
     ];
 
     /**

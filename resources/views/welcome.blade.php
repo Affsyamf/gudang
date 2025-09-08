@@ -1,73 +1,111 @@
 <x-guest-layout>
-    <div class="bg-slate-50 dark:bg-slate-900">
-        {{-- Header & Navigasi --}}
-        <header class="absolute inset-x-0 top-0 z-50">
-            <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div class="flex lg:flex-1">
-                    <a href="/" class="-m-1.5 p-1.5 flex items-center space-x-2">
-                        <svg class="h-8 w-auto text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
-                        </svg>
-                        <span class="font-bold text-xl text-slate-800 dark:text-white">PT. SUNROSE INDONESIA | Afif</span>
-                    </a>
-                </div>
-                <div class="flex lg:flex-1 lg:justify-end">
-                    <a href="{{ route('dashboard') }}" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm rounded-lg px-4 py-2 hover:bg-white/70 dark:hover:bg-slate-700/50 transition-colors duration-300">Masuk ke Dashboard <span aria-hidden="true">&rarr;</span></a>
-                </div>
-            </nav>
-        </header>
-
-        {{-- Hero Section --}}
-        <div class="relative isolate px-6 pt-14 lg:px-8">
-            <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-                <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#80ff89] to-[#0077ff] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-            </div>
-            <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-                <div class="text-center">
-                    <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">Sistem Manajemen Gudang Modern</h1>
-                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Solusi terintegrasi untuk memonitoring stok barang masuk dan keluar dengan efisien dan akurat.</p>
-                    <div class="mt-10 flex items-center justify-center gap-x-6">
-                        <a href="{{ route('dashboard') }}" class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Mulai Kelola</a>
+    {{-- Hero Section --}}
+    <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-[75vh]">
+        <div class="absolute top-0 w-full h-full bg-center bg-cover"
+            style="background-image: url('https://images.unsplash.com/photo-1616401784845-180882ba9ba8?q=80&w=2070&auto=format&fit=crop');">
+            <span id="blackOverlay" class="w-full h-full absolute opacity-75 bg-black"></span>
+        </div>
+        <div class="container relative mx-auto">
+            <div class="items-center flex flex-wrap">
+                <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto text-center">
+                    <div class="pr-12">
+                        <h1 class="text-white font-semibold text-5xl">
+                            Solusi Cerdas untuk Gudang Anda.
+                        </h1>
+                        <p class="mt-4 text-lg text-slate-200">
+                            Optimalkan efisiensi, lacak setiap pergerakan barang, dan dapatkan data akurat secara real-time dengan sistem manajemen gudang kami yang modern dan intuitif.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        {{-- Product Gallery Section --}}
-        <div class="bg-white dark:bg-slate-800/50 py-24 sm:py-32">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="mx-auto max-w-2xl lg:mx-0">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">Contoh Produk Kami</h2>
-                    <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Berikut adalah beberapa contoh barang yang dapat dikelola dalam sistem kami.</p>
+    {{-- Features Section --}}
+    <section class="pb-20 bg-slate-50 dark:bg-slate-800 -mt-24">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap">
+                <div class="lg:pt-12 pt-6 w-full md:w-4/12 px-4 text-center">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                            <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h12M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-12a2.25 2.25 0 01-2.25-2.25V3m12.75 0v6.75a2.25 2.25 0 01-2.25 2.25H9.75a2.25 2.25 0 01-2.25-2.25V3" /></svg>
+                            </div>
+                            <h6 class="text-xl font-semibold dark:text-white">Stok Real-Time</h6>
+                            <p class="mt-2 mb-4 text-slate-500 dark:text-slate-400">
+                                Stok barang dihitung secara dinamis dari setiap transaksi, memberikan Anda data paling akurat setiap saat.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="mx-auto mt-16 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-20 sm:grid-cols-3 lg:mx-0 lg:max-w-none lg:grid-cols-4">
-                    @forelse ($barangs as $barang)
-                        <article class="flex flex-col items-start justify-between">
-                            <div class="relative w-full">
-                                <img src="https://placehold.co/600x400/e2e8f0/475569?text={{ urlencode($barang->nama_barang) }}" alt="" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
-                                <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                <div class="w-full md:w-4/12 px-4 text-center">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                            <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
                             </div>
-                            <div class="max-w-xl">
-                                <div class="group relative">
-                                    <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300">
-                                        {{ $barang->nama_barang }}
-                                    </h3>
-                                    <p class="mt-2 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-400">{{ $barang->deskripsi ?: 'Tidak ada deskripsi.' }}</p>
-                                </div>
+                            <h6 class="text-xl font-semibold dark:text-white">Riwayat Transaksi</h6>
+                            <p class="mt-2 mb-4 text-slate-500 dark:text-slate-400">
+                                Lacak setiap barang yang masuk dan keluar dengan mudah melalui halaman riwayat yang terperinci.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-6 w-full md:w-4/12 px-4 text-center">
+                    <div class="relative flex flex-col min-w-0 break-words bg-white dark:bg-slate-900 w-full mb-8 shadow-lg rounded-lg">
+                        <div class="px-4 py-5 flex-auto">
+                            <div class="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-emerald-400">
+                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
                             </div>
-                        </article>
-                    @empty
-                        <p class="col-span-full text-center text-gray-500 dark:text-gray-400">Belum ada data barang untuk ditampilkan.</p>
-                    @endforelse
+                            <h6 class="text-xl font-semibold dark:text-white">Visualisasi Data</h6>
+                            <p class="mt-2 mb-4 text-slate-500 dark:text-slate-400">
+                                Pahami tren barang masuk dan keluar melalui grafik interaktif di halaman dashboard utama Anda.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
 
-        {{-- Footer --}}
-        <footer class="bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-            <div class="mx-auto max-w-7xl overflow-hidden px-6 py-12 lg:px-8">
-                <p class="text-center text-xs leading-5 text-gray-500 dark:text-gray-400">&copy; {{ date('Y') }} Afif Syam Fauzi, Inc. All rights reserved.</p>
+    {{-- Product Gallery Section --}}
+    <section class="py-20 bg-slate-50 dark:bg-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                    Galeri Produk
+                </h2>
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-300">
+                    Beberapa contoh barang yang dikelola dalam sistem.
+                </p>
             </div>
-        </footer>
-    </div>
+
+            <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                @forelse ($barangs as $barang)
+                <div class="group relative bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="aspect-w-1 aspect-h-1 w-full bg-gray-100 dark:bg-gray-800">
+                        @if($barang->image)
+                            <img src="{{ asset('storage/' . $barang->image) }}" alt="[Gambar {{ $barang->nama_barang }}]" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            {{ $barang->nama_barang }}
+                        </h3>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400 truncate">
+                            {{ $barang->deskripsi ?: 'Tidak ada deskripsi.' }}
+                        </p>
+                    </div>
+                </div>
+                @empty
+                <p class="text-center text-gray-500 dark:text-gray-400 col-span-full">Belum ada data barang untuk ditampilkan.</p>
+                @endforelse
+            </div>
+        </div>
+    </section>
 </x-guest-layout>
+

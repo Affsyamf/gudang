@@ -89,21 +89,23 @@
             </div>
         </div>
     </div>
-     @push('scripts')
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script> 
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
         document.querySelectorAll('.delete-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    text: "Data supplier akan dihapus secara permanen!",
+                    text: "Data Supplier akan dihapus secara permanen!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Ya, hapus!',
-                    cancelButtonText: 'Batal'
+                    cancelButtonText: 'Batal',
+                    background: document.documentElement.classList.contains('dark') ? '#1f2937' : '#fff',
+                    color: document.documentElement.classList.contains('dark') ? '#fff' : '#000'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         form.submit();
@@ -112,6 +114,6 @@
             });
         });
     </script>
-        @endpush
+    @endpush
 </x-app-layout>
 

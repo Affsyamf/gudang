@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Supplier;
 use Illuminate\Support\Facades\DB;
+use App\Rules\StokCukup;
 
 
 class TransaksiController extends Controller
@@ -37,22 +38,18 @@ class TransaksiController extends Controller
 
      public function storeMasuk(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'barang_id' => 'required|exists:barangs,id',
             'supplier_id' => 'required|exists:suppliers,id',
             'jumlah' => 'required|integer|min:1',
             'tanggal_transaksi' => 'required|date',
         ]);
 
-        Transaksi::create([
-            'barang_id' => $request->barang_id,
-            'supplier_id' => $request->supplier_id,
-            'jumlah' => $request->jumlah,
-            'tanggal_transaksi' => $request->tanggal_transaksi,
-            'jenis' => 'masuk',
-        ]);
+        $validated['jenis'] = 'masuk';
 
-        return redirect()->route('dashboard')->with('success', 'Transaksi barang masuk berhasil dicatat!');
+        Transaksi::create($validated);
+
+       return redirect()->route('barangs.index')->with('success', 'Transaksi barang masuk berhasil dicatat.');
     }
 
      // --- FUNGSI UNTUK BARANG KELUAR ---
@@ -73,29 +70,18 @@ class TransaksiController extends Controller
     
     public function storeKeluar(Request $request)
     {
-        $request->validate([
+       $validated = $request->validate([
             'barang_id' => 'required|exists:barangs,id',
+            'jumlah' => 'required|integer|min:1', new StokCukup($request->barang_id),
             'supplier_id' => 'nullable|exists:suppliers,id',
-            'jumlah' => 'required|integer|min:1',
             'tanggal_transaksi' => 'required|date',
         ]);
 
-        $barang = Barang::findOrFail($request->barang_id);
+        $validated['jenis'] = 'keluar';
 
-        // VALIDASI KRUSIAL: Cek apakah stok mencukupi
-        if ($barang->stok_tersedia < $request->jumlah) {
-            return back()->withInput()->withErrors(['jumlah' => 'Stok tidak mencukupi. Sisa stok: ' . $barang->stok_tersedia]);
-        }
+        Transaksi::create($validated);
 
-        Transaksi::create([
-            'barang_id' => $request->barang_id,
-            'supplier_id' =>  $request->supplier_id, // Barang keluar tidak butuh supplier
-            'jumlah' => $request->jumlah,
-            'tanggal_transaksi' => $request->tanggal_transaksi,
-            'jenis' => 'keluar',
-        ]);
-
-        return redirect()->route('dashboard')->with('success', 'Transaksi barang keluar berhasil dicatat!');
+       return redirect()->route('barangs.index')->with('success', 'Transaksi barang keluar berhasil dicatat.');
     }
 
     /**

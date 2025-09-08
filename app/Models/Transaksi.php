@@ -14,8 +14,8 @@ class Transaksi extends Model
         'barang_id',
         'supplier_id',
         'jumlah',
-        'tanggal_transaksi',
         'jenis', // misalnya: 'masuk' atau 'keluar'
+        'tanggal_transaksi',
     ];
 
      public function barang()
