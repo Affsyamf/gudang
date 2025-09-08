@@ -32,6 +32,18 @@
                         </a>
                     </div>
 
+                    <div class="mb-4">
+                        <div class="relative">
+                            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            {{-- PERBAIKAN: Menambahkan ID untuk JavaScript --}}
+                            <input type="text" name="search" id="search-input" class="block w-full rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-slate-800 text-gray-900 dark:text-gray-200 py-2 pl-10 pr-3 focus:border-blue-500 focus:ring-blue-500 sm:text-sm transition duration-150" placeholder="Cari berdasarkan nama atau email Supplier...">
+                        </div>
+                    </div>
+
                     {{-- Tabel Data --}}
                     <div class="overflow-x-auto border border-gray-200 dark:border-gray-700 rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -43,7 +55,7 @@
                                     <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody id="supplier-table-body" class="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse ($suppliers as $supplier)
                                     <tr class="hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors duration-150">
                                         <td class="px-6 py-4 text-center whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ $supplier->nama_supplier }}</td>
@@ -77,6 +89,14 @@
                                         </td>
                                     </tr>
                                 @endforelse
+
+                                {{-- Barus pesan tidak ditemukan --}}
+
+                                <tr id="no-results-row" class="hidden">
+                                    <td colspan="5" class="px-6 py-12 text-center">
+                                        <p class="text-gray-500 dark:text-gray-400">Tidak ada Supplier yang cocok dengan pencarian Anda.</p>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -113,6 +133,46 @@
                 });
             });
         });
+
+
+          // Live Search Script
+        document.getElementById('search-input').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let tableBody = document.getElementById('supplier-table-body');
+            let rows = tableBody.getElementsByTagName('tr');
+            let noResultsRow = document.getElementById('no-results-row');
+            let resultsFound = false;
+
+            for (let i = 0; i < rows.length; i++) {
+                // Jangan filter baris 'no-results-row' itu sendiri
+                if (rows[i].id === 'no-results-row') continue;
+
+                // Kolom ke-2 (index 1) adalah Kode Barang, Kolom ke-3 (index 2) adalah Nama Barang
+                let namasupplierCell = rows[i].getElementsByTagName('td')[0];
+                let emailCell = rows[i].getElementsByTagName('td')[1];
+
+                if (namasupplierCell && emailCell) {
+                    let namasupplierText = namasupplierCell.textContent || namasupplierCell.innerText;
+                    let emailText = emailCell.textContent || emailCell.innerText;
+                    
+                    if (namasupplierText.toLowerCase().indexOf(filter) > -1 || emailText.toLowerCase().indexOf(filter) > -1) {
+                        rows[i].style.display = "";
+                        resultsFound = true;
+                    } else {
+                        rows[i].style.display = "none";
+                    }
+                }
+            }
+
+            // Tampilkan atau sembunyikan pesan "tidak ditemukan"
+            if (resultsFound) {
+                noResultsRow.classList.add('hidden');
+            } else {
+                noResultsRow.classList.remove('hidden');
+            }
+        });
+
+        
     </script>
     @endpush
 </x-app-layout>
