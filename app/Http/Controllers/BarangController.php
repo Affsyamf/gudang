@@ -8,9 +8,25 @@ use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $barangs = Barang::orderBy('nama_barang', 'asc')->get();
+         $searchTerm = $request->input('search');
+
+        $barangsQuery = Barang::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('nama_barang', 'ILIKE', "%{$searchTerm}%")
+                      ->orWhere('kode_barang', 'ILIKE', "%{$searchTerm}%");
+                });
+            })
+            ->latest();
+
+        $barangs = $barangsQuery->paginate(10)->withQueryString();
+
+        if ($request->ajax()) {
+            return view('barangs.barang_table', compact('barangs'))->render();
+        }
+        
         return view('barangs.index', compact('barangs'));
     }
 

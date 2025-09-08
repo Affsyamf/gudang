@@ -10,9 +10,25 @@ class SupplierController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::latest()->paginate(10); 
+         $searchTerm = $request->input('search');
+
+        $suppliersQuery = Supplier::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                $query->where(function ($q) use ($searchTerm) {
+                    $q->where('nama_supplier', 'ILIKE', "%{$searchTerm}%")
+                      ->orWhere('email', 'ILIKE', "%{$searchTerm}%");
+                });
+            })
+            ->latest();
+        
+        $suppliers = $suppliersQuery->paginate(10)->withQueryString();
+
+        if ($request->ajax()) {
+            return view('suppliers.supplier_table', compact('suppliers'))->render();
+        }
+
         return view('suppliers.index', compact('suppliers'));
     }
 
@@ -29,16 +45,15 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'nama_supplier' => 'required| string| max:255',
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:20',
             'email' => 'required|email|unique:suppliers,email',
         ]);
 
-        supplier::create($request->all());
-        return redirect()->route('suppliers.index')
-                         ->with('success', 'Supplier created successfully.');
+         Supplier::create($validated);
+         return redirect()->route('suppliers.index')->with('success', 'Supplier baru berhasil ditambahkan.');
     }
 
     /**
@@ -46,7 +61,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        return view('suppliers.show', compact('supplier'));
+        // return view('suppliers.show', compact('supplier'));
     }
 
     /**
@@ -62,7 +77,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-         $request->validate([
+        $validated = $request->validate([
             'nama_supplier' => 'required|string|max:255',
             'alamat' => 'required|string',
             'kontak' => 'required|string|max:20',
@@ -70,10 +85,9 @@ class SupplierController extends Controller
             'email' => 'required|email|unique:suppliers,email,' . $supplier->id, 
         ]);
 
-        $supplier->update($request->all());
+         $supplier->update($validated);
 
-        return redirect()->route('suppliers.index')
-                         ->with('success', 'Data supplier berhasil diperbarui.');
+         return redirect()->route('suppliers.index')->with('success', 'Data supplier berhasil diperbarui.');
     }
 
     /**
@@ -83,7 +97,6 @@ class SupplierController extends Controller
     {
          $supplier->delete();
 
-        return redirect()->route('suppliers.index')
-                         ->with('success', 'Supplier berhasil dihapus.');
+          return redirect()->route('suppliers.index')->with('success', 'Data supplier berhasil dihapus.');
     }
 }

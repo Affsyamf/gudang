@@ -46,7 +46,7 @@
                              <svg class="h-8 w-8 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                             </svg>
-                            <span class="text-xl font-bold text-slate-800 dark:text-white">GudangApp</span>
+                            <span class="text-xl font-bold text-slate-800 dark:text-white">PT. SUNROSE INDONESIA</span>
                         </a>
                     </div>
 
@@ -96,7 +96,7 @@
         
         <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500 dark:text-gray-400">
-                &copy; {{ date('Y') }} PT. Sunrose Indonesia & GudangApp. All Rights Reserved.
+                &copy; {{ date('Y') }} PT. Sunrose Indonesia & Afif Syam Fauzi. All Rights Reserved.
             </div>
         </footer>
     </div>
