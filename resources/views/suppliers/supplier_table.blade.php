@@ -3,18 +3,18 @@
     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
         <thead class="bg-gray-50 dark:bg-slate-800">
             <tr>
-                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Nama Supplier</th>
-                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
-                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Kontak</th>
-                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
+                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Nama Supplier</th>
+                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Email</th>
+                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Kontak</th>
+                <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-slate-900 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
             </tr>
         </thead>
         <tbody class="bg-white dark:bg-slate-900 divide-y divide-gray-200 dark:divide-gray-700">
             @forelse ($suppliers as $supplier)
                 <tr class="hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900 dark:text-white">{{ $supplier->nama_supplier }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-300">{{ $supplier->email }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500 dark:text-gray-300">{{ $supplier->kontak }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-900 font-semibold dark:text-gray-300">{{ $supplier->email }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-slate-900 dark:text-gray-300">{{ $supplier->kontak }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                         <div class="flex items-center justify-center space-x-4">
                             <a href="{{ route('suppliers.edit', $supplier->id) }}" class="text-yellow-500 hover:text-yellow-700 dark:text-yellow-400 dark:hover:text-yellow-300" title="Edit">
