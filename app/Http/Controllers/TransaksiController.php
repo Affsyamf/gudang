@@ -52,8 +52,8 @@ class TransaksiController extends Controller
      */
     public function createMasuk()
     {
-        $barangs = Barang::orderBy('nama_barang')->get();
-        $suppliers = Supplier::orderBy('nama_supplier')->get();
+        $barangs = Barang::orderBy('nama_barang')->get(['id', 'nama_barang' ]);
+        $suppliers = Supplier::orderBy('nama_supplier')->get(['id', 'nama_supplier']);
         return view('transaksis.create_masuk', compact('barangs', 'suppliers'));
     }
 
@@ -81,8 +81,15 @@ class TransaksiController extends Controller
      */
     public function createKeluar()
     {
-        $barangs = Barang::orderBy('nama_barang')->get();
-        $suppliers = Supplier::orderBy('nama_supplier')->get();
+        $barangs = Barang::all()->filter(function($barang) {
+            return $barang->stok() > 0;
+        })->map(function($barang) {
+            return [
+                'id' => $barang->id, 
+                'nama_barang' => $barang->nama_barang . ' (Stok: ' . $barang->stok() . ')'
+            ];
+            })->values();
+        $suppliers = Supplier::orderBy('nama_supplier')->get(['id', 'nama_supplier']);
         return view('transaksis.create_keluar', compact('barangs', 'suppliers'));
     }
 

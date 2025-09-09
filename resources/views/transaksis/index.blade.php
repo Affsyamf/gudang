@@ -1,6 +1,20 @@
 <x-app-layout>
     <div class="py-12 bg-slate-100 dark:bg-slate-800">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          
+            {{-- PERBAIKAN: Menambahkan blok untuk menampilkan notifikasi --}}
+            @if (session('success'))
+                <div id="success-notification" class="mb-6 bg-green-100 dark:bg-green-900/50 border-l-4 border-green-500 text-green-700 dark:text-green-300 p-4 rounded-lg shadow-md" role="alert">
+                    <div class="flex">
+                        <div class="py-1"><svg class="fill-current h-6 w-6 text-green-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                        <div>
+                            <p class="font-bold">Sukses!</p>
+                            <p class="text-sm">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+          
             <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden">
                 <div class="p-6 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-gray-700">
                     
@@ -56,6 +70,18 @@
     @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            
+            // Script untuk menghilangkan notifikasi setelah 4 detik
+            const notification = document.getElementById('success-notification');
+            if (notification) {
+                setTimeout(() => {
+                    notification.style.transition = 'opacity 0.5s ease';
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 500);
+                }, 4000);
+            }
+            
+            // script AJAX untuk search dan pagination
             let searchInput = document.getElementById('search-input');
             let timer;
 

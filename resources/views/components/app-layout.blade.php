@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'Gudang App') }}</title>
 
+    {{-- tomjs --}}
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -22,6 +24,68 @@
             darkMode: 'class'
         }
     </script>
+
+      {{-- PERBAIKAN: Menambahkan styling kustom untuk TomSelect dalam dark mode --}}
+    <style>
+        .dark .ts-control {
+    background-color: #1e293b !important; /* slate-800 */
+    border-color: #475569 !important;     /* slate-600 */
+    color: #e2e8f0 !important;            /* slate-200 */
+}
+
+/* Placeholder di input */
+.dark .ts-control input::placeholder {
+    color: #94a3b8 !important; /* slate-400 */
+}
+
+/* Item yang sudah dipilih (dalam box input) */
+.dark .ts-control .item {
+    color: #f1f5f9 !important; /* slate-100 biar lebih terang */
+    background-color: transparent !important;
+    opacity: 1 !important; /* override default TomSelect yang bikin pudar */
+}
+
+/* Dropdown list container */
+html.dark .ts-dropdown {
+    background-color: #0f172a !important; /* slate-900 */
+    border-color: #475569 !important; 
+     color: #e2e8f0 !important;    /* slate-600 */
+}
+
+/* Semua opsi di dropdown */
+.dark .ts-dropdown .ts-option {
+    color: #e2e8f0 !important; /* slate-200 */
+}
+
+.dark .ts-control input {
+    color: #f1f5f9 !important;   /* slate-100 → putih terang */
+    background-color: transparent !important;
+}
+
+/* Opsi yang aktif/terpilih saat hover */
+.dark .ts-dropdown .ts-option.active {
+    background-color: #334155 !important; /* slate-700 */
+    color: #ffffff !important;
+}
+
+/* Opsi yang disabled */
+.dark .ts-dropdown .ts-option[aria-disabled="true"] {
+    color: #94a3b8 !important; /* slate-400 */
+    opacity: 1 !important;     /* jangan bikin pudar */
+}
+
+/* Create option (jika pakai create feature TomSelect) */
+.dark .ts-dropdown .create {
+    color: #e2e8f0 !important; /* slate-200 */
+}
+
+/* Search input di dalam dropdown */
+.dark .ts-dropdown .ts-control input {
+    background-color: transparent !important;
+    color: #e2e8f0 !important; /* slate-200 */
+}
+
+    </style>
     
     {{-- Script inisialisasi tema di awal untuk menghindari kedipan --}}
     <script>
@@ -50,6 +114,8 @@
     {{-- SweetAlert2 & ApexCharts via CDN --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
     @stack('scripts')
+    
 </body>
 </html>
