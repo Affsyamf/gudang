@@ -35,9 +35,9 @@
                             </button>
                             <div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top-right right-0" style="display: none;">
                                 <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-slate-800">
-                                    <a href="{{ route('transaksis.index') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Riwayat Transaksi</a>
-                                    <a href="{{ route('transaksi.createMasuk') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Barang Masuk</a>
-                                    <a href="{{ route('transaksi.createKeluar') }}" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Barang Keluar</a>
+                                    <a href="{{ route('transaksis.index') }}" class="block px-4 py-2 text-sm text-slate-900 font-semibold dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Riwayat Transaksi</a>
+                                    <a href="{{ route('transaksi.createMasuk') }}" class="block px-4 py-2 text-sm text-slate-900 font-semibold dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Barang Masuk</a>
+                                    <a href="{{ route('transaksi.createKeluar') }}" class="block px-4 py-2 text-sm text-slate-900 font-semibold dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700">Barang Keluar</a>
                                 </div>
                             </div>
                         </div>
