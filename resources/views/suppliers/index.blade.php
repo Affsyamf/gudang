@@ -52,7 +52,7 @@
         </div>
     </div>
     @push('scripts')
-    <script src="[https://cdn.jsdelivr.net/npm/sweetalert2@11](https://cdn.jsdelivr.net/npm/sweetalert2@11)"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function initializeDeleteForms() {
             document.querySelectorAll('.delete-form').forEach(form => {
