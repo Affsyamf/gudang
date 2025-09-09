@@ -25,7 +25,7 @@
         }
     </script>
 
-      {{-- Styling kustom untuk TomSelect dalam dark mode --}}
+      {{-- PERBAIKAN: Menambahkan styling kustom untuk TomSelect dalam dark mode --}}
     <style>
         .dark .ts-control {
     background-color: #1e293b !important; /* slate-800 */
@@ -89,8 +89,7 @@ html.dark .ts-dropdown {
     
     {{-- Script inisialisasi tema di awal untuk menghindari kedipan --}}
     <script>
-        // PERBAIKAN: Menggunakan 'theme' sebagai kunci standar
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -98,7 +97,7 @@ html.dark .ts-dropdown {
     </script>
     
     {{-- Alpine.js untuk interaktivitas (DENGAN DEFER) --}}
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 </head>
 <body class="font-sans antialiased bg-slate-100 dark:bg-slate-900 overflow-x-hidden">
@@ -120,4 +119,3 @@ html.dark .ts-dropdown {
     
 </body>
 </html>
-
