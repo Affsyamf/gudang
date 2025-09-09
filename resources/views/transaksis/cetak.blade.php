@@ -3,6 +3,7 @@
         {{-- Header Laporan --}}
         <header class="flex justify-between items-center border-b pb-4 mb-8">
             <div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo Perusahaan" class="h-12 mb-2">
                 <h1 class="text-3xl font-bold text-slate-800">Laporan Transaksi Gudang</h1>
                 <p class="text-slate-500">Periode: <span class="font-semibold">{{ \Carbon\Carbon::parse($startDate)->isoFormat('D MMMM Y') }}</span> - <span class="font-semibold">{{ \Carbon\Carbon::parse($endDate)->isoFormat('D MMMM Y') }}</span></p>
             </div>
